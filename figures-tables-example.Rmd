@@ -1,0 +1,37 @@
+---
+title: "Figures and Tables"
+output: html_notebook
+---
+
+# The Article Header Information
+
+YAML header:
+
+```
+output:
+  rticles::sim_article:
+    keep_tex: TRUE
+```
+
+## Figures and Tables
+
+Figures are supported from R code:
+
+```{r plot-ref, fig.cap = "Fancy Caption\\label{fig:plot}"}
+x = rnorm(10)
+y = rnorm(10)
+plot(x, y)
+```
+
+...and can be referenced (Figure \ref{fig:plot}) by including the `\\label{}` tag in the `fig.cap` attribute of the R chunk: `fig.cap = "Fancy Caption\\label{fig:plot}"`. It is a quirky hack at the moment, see [here](https://github.com/yihui/knitr/issues/323).
+
+Analogously, use Rmarkdown to produce tables as usual:
+
+```{r, results = "asis"}
+if (!require("xtable")) install.packages("xtable")
+xt <- xtable(head(cars), caption = "A table", label = 
+ "tab:table")
+print(xt, comment = FALSE)
+```
+
+Referenced via Table \ref{tab:table}. 
